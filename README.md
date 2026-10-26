@@ -1,5 +1,10 @@
 # Software Watcher
 
+Checks the software on your Fedora PC against public vulnerability lists without
+uploading your software list.
+
+[See a synthetic sample report →](SAMPLE_OUTPUT.md)
+
 > Experimental, Fedora-focused project. Not independently security-audited.
 
 A Linux, read-only software review tool. This repository is a **code-only rebuild
@@ -37,17 +42,18 @@ There are no installers, automatic updates, remediation commands, credentials,
 keys, host inventories, runtime state, environment files or operational receipts
 in this rebuild kit. Nothing is scheduled or enabled by copying it.
 
-- See [SAMPLE_OUTPUT.md](SAMPLE_OUTPUT.md) for what a run looks like.
-
 ## Requirements
 
 Linux and system Python 3.14 are the reference environment. This is not a
 platform-independent deployment: `/usr/bin/gpg` and `/usr/bin/gpgconf` are needed
 for encryption tests; system GnuPG and an existing private `~/.gnupg` directory
 are needed for daily operation. System Python `rpm` bindings provide authoritative
-Fedora EVR comparisons; the full current test suite requires them. Without those
-bindings RPM rows remain unassessed, not guessed safe. System `packaging` improves
-PyPI version comparisons; its absence permits only conservative numeric fallback.
+Fedora EVR comparisons. RPM-specific comparison tests skip when those bindings
+are unavailable; without them, RPM rows remain unassessed, not guessed safe.
+Fedora CI requires a successful `import rpm` before running the suite, so missing
+bindings fail the CI job rather than silently skipping real RPM comparisons.
+System `packaging` improves PyPI version comparisons; its absence permits only
+conservative numeric fallback.
 Python's `compression.zstd` is needed for zstd Fedora metadata. The collector also
 queries system RPM and Flatpak tools; unavailable tools are explicit errors.
 Dependencies must be provisioned and reviewed separately; this code installs none.

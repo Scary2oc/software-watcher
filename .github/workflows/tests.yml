@@ -21,5 +21,8 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
+      - name: Require Fedora RPM bindings
+        run: /usr/bin/python3 -c "import rpm; print('System RPM bindings available; real RPM comparisons are required')"
+
       - name: Run offline tests
         run: /usr/bin/python3 -B tests/run_offline.py

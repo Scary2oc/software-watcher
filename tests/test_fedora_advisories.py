@@ -52,8 +52,20 @@ class FedoraTests(unittest.TestCase):
         self.assertEqual([row['status'] for row in findings], ['affected', 'not affected', 'not affected'])
         self.assertEqual(len({inventory.identity(row) for row in findings}), 3)
 
+    def test_rpm_comparison_is_skipped_without_bindings(self):
+        import fedora_advisories as f
+        from unittest.mock import patch
+        result = unittest.TestResult()
+        with patch.object(f, 'rpm', None):
+            FedoraTests('test_rpm_backports_epoch_and_unknown_are_not_upstream_guesses').run(result)
+        self.assertEqual(len(result.skipped), 1)
+        self.assertEqual(result.failures, [])
+        self.assertEqual(result.errors, [])
+
     def test_rpm_backports_epoch_and_unknown_are_not_upstream_guesses(self):
         import fedora_advisories as f
+        if f.rpm is None:
+            self.skipTest('system RPM bindings required; exercised in Fedora CI')
         entry={'ecosystem':'RPM','name':'synthetic','version':'1:2.0-4.fc44','source':'RPM:synthetic|x86_64','vendor':'Fedora Project'}
         advisory={'name':'synthetic','arch':'x86_64','fixed':'1:2.0-3.fc44','id':'FEDORA-SYNTHETIC','aliases':['CVE-2099-00001']}
         row=f.assess(entry,[advisory],fresh=True,kev={'CVE-2099-00001'})
