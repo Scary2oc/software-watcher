@@ -3,6 +3,8 @@
 Checks the software on your Fedora PC against public vulnerability lists without
 uploading your software list.
 
+![Synthetic example report](docs/sample-report.png)
+
 [See a synthetic sample report →](SAMPLE_OUTPUT.md)
 
 > Experimental, Fedora-focused project. Not independently security-audited.

@@ -14,6 +14,9 @@
 !/vulnerabilities.py
 !/enrichment.py
 !/SAMPLE_OUTPUT.md
+!/docs/
+/docs/*
+!/docs/sample-report.png
 !/public_feeds.py
 !/secure_store.py
 !/inventory.py
