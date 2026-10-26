@@ -1,0 +1,20 @@
+[Unit]
+Description=Read-only local software advisory check
+# Inert user-unit template. Replace @SOURCE_DIR@ and review before installation.
+
+[Service]
+Type=oneshot
+UMask=0077
+Environment=PYTHONDONTWRITEBYTECODE=1
+WorkingDirectory=@SOURCE_DIR@
+ExecStartPre=/usr/bin/python3 -B -I -S @SOURCE_DIR@/daily_check.py --check-storage
+ExecStart=/usr/bin/python3 -B -I -S @SOURCE_DIR@/daily_check.py
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/.local/state/software-watcher %h/.gnupg
+RestrictSUIDSGID=true
+LockPersonality=true
+# No EnvironmentFile, notification destinations, installer, or enable action.
+# Notification mode remains dry-run until an owner provisions private policy.

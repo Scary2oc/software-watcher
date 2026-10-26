@@ -1,0 +1,11 @@
+[Unit]
+Description=Software advisory check schedule (review before use)
+# Inert template: do not install/start until storage and execution are reviewed.
+
+[Timer]
+OnCalendar=*-*-* 09:00:00
+RandomizedDelaySec=15m
+Persistent=false
+Unit=software-watcher.service
+
+# Intentionally no [Install] section: no auto-enable or catch-up run.

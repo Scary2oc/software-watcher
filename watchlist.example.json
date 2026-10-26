@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "SYNTHETIC": true,
+  "inventory_snapshot": "/SYNTHETIC/inventory",
+  "storage": {"require_encrypted_mount": true},
+  "components": [
+    {
+      "id": "synthetic-package",
+      "display": "SYNTHETIC fixture only",
+      "enabled": false,
+      "install_origin": "synthetic",
+      "update_owner": "owner",
+      "installed": [],
+      "upstream": {"adapter": "pypi_project", "package": "synthetic-package"}
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"id":"SYNTHETIC-ADVISORY-1","modified":"2026-01-01T00:00:00Z","aliases":["CVE-2099-00001"],"affected":[{"package":{"ecosystem":"PyPI","name":"example-pkg"},"ranges":[{"type":"ECOSYSTEM","events":[{"introduced":"0"},{"fixed":"2.0"}]}]}]}

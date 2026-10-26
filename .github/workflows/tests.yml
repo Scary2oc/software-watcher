@@ -1,0 +1,25 @@
+# Runs the offline test suite on every push to main and every pull request.
+name: Offline tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Read-only: this workflow can look at the code but can't change anything.
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: fedora:44
+    steps:
+      - name: Install system dependencies
+        run: dnf install -y python3 python3-rpm python3-packaging gnupg2 git
+
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Run offline tests
+        run: /usr/bin/python3 -B tests/run_offline.py
